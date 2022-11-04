@@ -1,0 +1,28 @@
+def categorical_data(categorical):
+    columns = categorical.columns.values
+    """
+    Converts categorical values into numerical values
+    
+    """
+    for column in columns:
+        numeric_val = {}
+        
+        def converting_to_numerical(val):
+            return numeric_val[val]
+        
+        if categorical[column].dtype != np.int64 and categorical[column].dtype != np.float64:
+            column_vals = categorical[column].values.tolist()
+            unique_val = set(column_vals)
+            
+            x = 0
+            
+            for unique in unique_val:
+                if unique not in numeric_val:
+                    numeric_val[unique] = x
+                    
+                    x += 1
+                    
+            categorical[column] = list(map(converting_to_numerical, categorical[column]))
+    
+    return categorical  
+categorical_data(categorical)
